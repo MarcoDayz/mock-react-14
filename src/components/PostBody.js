@@ -1,4 +1,4 @@
-const PostBody = (postBody) => {
+const PostBody = ({postBody}) => {
 
 console.log(postBody)
 
