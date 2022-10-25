@@ -1,49 +1,25 @@
-import {useState, useEffect} from 'react'
-import Posts from './components/Posts'
-import Loading from './components/Loading'
-import Title from './components/Title'
-import PostBody from './components/PostBody'
+import {useState} from 'react';
+import Title from './components/Title';
+import InputForm from './components/InputForm';
+import ToDo from './components/ToDo';
 
 const App = () => {
 
-    const [posts, setPosts] = useState([]);
-    const [postItem, setPostItem] = useState(false);
-    const [postBody, setPostBody] = useState([])
+    const [toDo, setToDO] = useState(['test']);
 
-
-    useEffect(() => {
-        const getPosts = async () => {
-            const data = await fetch('https://jsonplaceholder.typicode.com/posts')
-            const json = await data.json();
-            
-            setPosts(json)
-        }
-
-        getPosts()
-    }, []);
-
-    const handleClick = (e) => {
-        setPostItem(true)
+    const addToDo = (input) => {
+        setToDO([...toDo, input])
     }
 
 
-if(!postItem){
-        return (
+    return (
         <>
             <Title />
-            {posts.length > 0 ? <Posts posts={posts} id="list" setPostBody={setPostBody} handleClick={handleClick}/> : <Loading />}
+            <InputForm addToDo={addToDo}/>
+            <ToDo toDo={toDo}/>
         </>
-    )
-}
-else{
-    return(
-        <>
-            <PostBody postBody={postBody}/>
-        </>
-    )
-}
 
-
+    )
     
 }
 
